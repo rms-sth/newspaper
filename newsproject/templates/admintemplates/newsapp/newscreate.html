@@ -1,0 +1,27 @@
+{% extends "admintemplates/adminbase.html" %}
+{% block content %}
+<style>
+	#id_tag {
+    height: 50px ;
+    width: 500px;
+}
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+<div class="container">
+<h1>Create News</h1>
+<form action="" method="post">{% csrf_token %}
+    {{ form.as_p}}
+    <input class="btn btn-success" type="submit" value="Post">
+</form>
+</div>
+  <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"></script>
+<script>
+	$(document).ready(function() {
+    $('#id_tag').select2({
+    	tags: true,
+    tokenSeparators: [',', ' ']
+    });
+
+});
+</script>
+{% endblock content %}

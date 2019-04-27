@@ -1,0 +1,12 @@
+{% extends 'admintemplates/adminbase.html' %}
+
+{% block content %}
+<div class="container mt-5">
+    <form method="post" novalidate>
+        {% csrf_token %}
+        {{ form.as_p }}
+        <button type="submit" class="btn btn-primary">Log in</button>
+    </form>
+
+</div>
+{% endblock content %}

@@ -1,0 +1,11 @@
+{% extends 'admintemplates/adminbase.html' %}
+
+{% block content %}
+<div class="container">
+    <h2>You have been logout!</h2>
+    <div class="border-top-3">
+        <a href="{% url 'newsapp:adminlogin' %}"></a>
+    </div>
+</div>
+
+{% endblock content %}

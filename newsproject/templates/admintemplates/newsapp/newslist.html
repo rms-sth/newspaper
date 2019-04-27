@@ -1,0 +1,60 @@
+{% extends "admintemplates/adminbase.html" %}
+{% block content %}
+<div class="container">
+    <h2>News List</h2>
+    <div class="create mr-left">
+        <a class="btn btn-primary" href="{% url 'newsapp:adminnewscreate' %}" role="button">Create News</a>
+    </div><br>
+    <hr>
+
+    <input type="text" id="myInput" onkeyup="myFunction()" placeholder="Search for news.." title="Type in a name">
+
+    <table id="myTable">
+        <tr class="header">
+            <th class="alert alert-primary" style="width:40%;">Title</th>
+            <th class="alert alert-success" style="width:20%;">Pub_Date</th>
+            <th class="alert alert-secondary" style="width:10%;">Author</th>
+            <th class="alert alert-warning" style="width:10%;">Status</th>
+            <th class="alert alert-danger" style="width:20%;">Operation</th>
+        </tr>{% for news in object_list %}
+        <tr>
+            <td><a href="{% url 'newsapp:adminnewsdetail' news.pk %}" class="alert-link">{{ news.title }}</a></td>
+            <td>{{ news.created_at | date:"M d, Y"}}</td>
+            <td>{{ news.author }}</td>
+            <td>{{ news.status }}</td>
+            <td>
+                <a class="btn btn-success" href="{% url 'newsapp:adminnewsupdate'  news.pk %}" role="button">Update</a>
+
+                <button type="button" class="btn btn-danger" data-toggle="modal"
+                    data-target="#exampleModal">Delete</button>
+            </td>
+
+        </tr>
+        <!-- Modal -->
+        <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Confirm</h5>
+                        <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                            <span aria-hidden="true">&times;</span>
+                        </button>
+                    </div>
+                    <div class="modal-body">
+                        <form action="{% url 'newsapp:adminnewsdelete' news.pk %}" method="post">{% csrf_token %}
+                            <p>Are your sure to delete </p>
+                            <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                            <input class="btn btn-danger" type="submit" value="Confirm">
+                        </form>
+                    </div>
+
+                </div>
+            </div>
+        </div>
+        {% endfor %}
+    </table>
+
+</div>
+
+{% endblock content %}
