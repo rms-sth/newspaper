@@ -34,7 +34,7 @@
                                     <div class="dropdown-menu" aria-labelledby="{{c.name}}">
                                         {% for t in c.topics.all %}
                                             {% if t.subject %}
-                                                <a class="dropdown-item" href="index.html">{{ t.subject }}</a>
+                                                <a class="dropdown-item" href="{% url 'newsapp:clientnewstopic' t.pk %}">{{ t.subject }}</a>
                                             {% endif %}
                                         {% endfor %}
                                     </div>

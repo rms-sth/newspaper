@@ -13,7 +13,7 @@
     <!-- Single Popular Post -->
     {% for p in popularposts %}
     <div class="single-populer-post d-flex">
-        <img src="{% static 'clientstatic/img/sidebar-img/1.jpg' %}" alt="">
+        <img src="{{ p.image.url }}" alt="">
         <div class="post-content">
             <a href="{% url 'newsapp:clientnewsdetail' p.id %}">
                 <h4>{{ p.title | truncatechars:20 }}</h4>

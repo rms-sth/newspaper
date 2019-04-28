@@ -76,7 +76,7 @@
 
 						<div class="tags-area">
 							{% for t in post.tag.all %}
-							<a href="#">{{t.word}}</a>
+							<a href="{% url 'newsapp:clientnewstag' t.pk %}">{{t.word}}</a>
 							{% endfor %}
 						</div>
 						{% include 'clienttemplates/relatedpost.html' %}

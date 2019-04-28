@@ -76,6 +76,11 @@ class ClientPostDetailView(DetailView):
     template_name = 'clienttemplates/clientnewsdetail.html'
     model = Post
 
+    def get_context_data(self, **kwargs):
+        context = super(ClientPostDetailView, self).get_context_data(**kwargs)
+        context['categories'] = Category.objects.all()
+        return context
+
 
 class ClientPostTopic(ListView):
     model = Post
@@ -88,4 +93,38 @@ class ClientPostTopic(ListView):
     def get_context_data(self, **kwargs):
         context = super(ClientPostTopic, self).get_context_data(**kwargs)
         context['topic'] = self.topic
+        context['categories'] = Category.objects.all()
+        return context
+
+
+class ClientPostTag(ListView):
+    model = Post
+    template_name = 'clienttemplates/clientnewstag.html'
+
+    def get_queryset(self):
+        self.tag = get_object_or_404(Tag, pk=self.kwargs['pk'])
+        return Post.objects.filter(tag=self.tag)
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientPostTag, self).get_context_data(**kwargs)
+        context['tag'] = self.tag
+        context['categories'] = Category.objects.all()
+        return context
+
+
+class ClientPostCategory(ListView):
+    model = Post
+    template_name = 'clienttemplates/clientnewscategory.html'
+
+    # def get_queryset(self):
+    #     self.tag = get_object_or_404(Tag, pk=self.kwargs['pk'])
+    #     return Post.objects.filter(tag=self.tag)
+
+    def get_context_data(self, **kwargs):
+        context = super(ClientPostCategory, self).get_context_data(**kwargs)
+        # context['category'] = self.tag
+        context['categories'] = Category.objects.all()
+        context['posts'] = Post.objects.filter(topic__category=self.kwargs['pk'])
+        # post__category = Category.objects.get(id=self.kwargs['pk'])
+        print(context['posts'])
         return context

@@ -13,7 +13,7 @@
                 <div class="single_catagory wow fadeInUp" data-wow-delay=".3s">
                     <img src="{% static 'clientstatic/img/catagory-img/1.jpg' %}" alt="">
                     <div class="catagory-title">
-                        <a href="#">
+                        <a href="{% url 'newsapp:clientnewscategory' category.id %}">
                             <h5>{{ category.name }}</h5>
                         </a>
                     </div>

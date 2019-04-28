@@ -6,8 +6,7 @@
         <!-- Post Thumb -->
         {% for l in latest %}
         <div class="post-thumb">
-            <img src="{% static 'clientstatic/img/blog-img/1.jpg' %}" alt="">
-            <img src="{{ l.image }}" alt="">
+            <img src="{{ l.image.url }}" alt="">
         </div>
         <!-- Post Content -->
         

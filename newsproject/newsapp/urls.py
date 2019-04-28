@@ -10,6 +10,8 @@ urlpatterns = [
     path('', ClientHomeView.as_view(), name='clienthome'),
     path('<int:pk>/detail/', ClientPostDetailView.as_view(), name='clientnewsdetail'),
     path('posts/topic/<int:pk>/', ClientPostTopic.as_view(), name='clientnewstopic'),
+    path('posts/tag/<int:pk>/', ClientPostTag.as_view(), name='clientnewstag'),
+    path('posts/category/<int:pk>/', ClientPostCategory.as_view(), name='clientnewscategory'),
 
 
 
