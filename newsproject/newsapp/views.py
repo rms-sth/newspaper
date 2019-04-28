@@ -85,6 +85,7 @@ class ClientPostDetailView(DetailView):
 class ClientPostTopic(ListView):
     model = Post
     template_name = 'clienttemplates/clientnewstopic.html'
+    paginate_by = 1
 
     def get_queryset(self):
         self.topic = get_object_or_404(Topic, pk=self.kwargs['pk'])
