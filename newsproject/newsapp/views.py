@@ -66,9 +66,10 @@ class ClientHomeView(ListView):
 
     def get_context_data(self, **kwargs):
         context = super(ClientHomeView, self).get_context_data(**kwargs)
-        context['popularposts'] = Post.objects.all()[:5]
+        context['popularposts'] = Post.objects.filter().order_by('-post_count')[:5]
         context['latest'] = Post.objects.filter().order_by('-created_at')[0:1]
         context['latests'] = Post.objects.filter().order_by('-created_at')[0:4]
+        context['random'] = Post.objects.filter().order_by('?')[0:4]
         return context
 
 
@@ -76,9 +77,17 @@ class ClientPostDetailView(DetailView):
     template_name = 'clienttemplates/clientnewsdetail.html'
     model = Post
 
+    # def get_queryset(self):
+    #     self.post_count = get_object_or_404(Post, pk=self.kwargs['pk'])
+    #     self.post_count = self.post_count.values('post_count') + 1
+    #     return Post.objects.filter(topic=self.post_count)
+
     def get_context_data(self, **kwargs):
         context = super(ClientPostDetailView, self).get_context_data(**kwargs)
         context['categories'] = Category.objects.all()
+        obj = self.get_object()
+        obj.post_count += 1
+        obj.save()
         return context
 
 

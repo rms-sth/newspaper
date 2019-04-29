@@ -55,9 +55,21 @@ class Post(models.Model):
         User, on_delete=models.CASCADE, related_name='+')
     status = models.CharField(
         max_length=10, choices=STATUS_CHOICES, default='unpublished')
+    post_count = models.IntegerField(default=0)
 
     def __str__(self):
         return self.title
 
     class Meta:
         ordering = ('-created_at',)
+
+
+
+def get_image_filename(instance, filename):
+    id = instance.post.id
+    return "post_images/%s" % (id)
+
+        
+class Images(models.Model):
+    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    image = models.ImageField(upload_to=get_image_filename, verbose_name='Image')
