@@ -69,7 +69,13 @@ def get_image_filename(instance, filename):
     id = instance.post.id
     return "post_images/%s" % (id)
 
-        
+
+class Album(models.Model):
+    name = models.CharField(max_length=30)
+    description = models.TextField()
+    created_at = models.DateTimeField(auto_now=True)
+    
+
 class Images(models.Model):
-    post = models.ForeignKey(Post, default=None, on_delete=models.CASCADE)
+    album = models.ForeignKey(Album, on_delete=models.CASCADE)
     image = models.ImageField(upload_to=get_image_filename, verbose_name='Image')

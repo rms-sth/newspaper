@@ -1,12 +1,19 @@
 from django.views.generic import *
 from django.urls import reverse_lazy, reverse
-from .models import Post, Tag
+from .models import Post, Tag, Album
 from .forms import AdminNewsForm
 from django.contrib.auth.models import User
 from .models import *
 from django.shortcuts import render, get_object_or_404
 from .forms import *
 from django.views.generic.edit import FormView
+from django.forms import modelformset_factory
+from django.contrib.auth.decorators import login_required
+from django.contrib import messages
+from django.http import HttpResponseRedirect
+from django.template import RequestContext
+
+
 
 
 
@@ -26,6 +33,18 @@ class AdminNewsCreateView(CreateView):
     form_class = AdminNewsForm
     template_name = 'admintemplates/newsapp/newscreate.html'
     success_url = reverse_lazy('newsapp:adminnewslist')
+    # form_class = modelformset_factory(
+    #     models.Sample,
+    #     fields=['name', 'collected', 'location'],
+    #     extra=3
+    # )
+
+
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+        context['image'] = ImageForm
+        # context['com'] = CommentForm
+        return context
 
     def form_valid(self, form):
         user = self.request.user.id
@@ -141,6 +160,60 @@ class ClientPostCategory(ListView):
         context['cat'] = post__category
         return context
 
+
+# class AdminGalleryCreateView(FormView):
+#     success_url = reverse_lazy('newsapp:adminalbumdetail')
+#     form_class = modelformset_factory(
+#         Images,
+#         fields=['name', 'description', 'image'],
+#         extra=3
+#     )
+#     template_name = 'admintemplates/adminalbumcreate.html'
+
+#     def get_form_kwargs(self):
+#         kwargs = super(AdminGalleryCreateView, self).get_form_kwargs()
+#         kwargs["queryset"] = Images.objects.none()
+#         return kwargs
+
+#     def form_valid(self, form):
+#         for sub_form in form:
+#             if sub_form.has_changed():
+#                 sub_form.save()
+
+#         return super(AdminGalleryCreateView, self).form_valid(form)
+
+
+
+# def album(request):
+
+#     ImageFormSet = modelformset_factory(Images, form=ImageForm, extra=3)
+
+#     if request.method == 'POST':
+
+#         postForm = AlbumForm(request.POST)
+#         formset = ImageFormSet(request.POST, request.FILES, queryset=Images.objects.none())
+
+#         if postForm.is_valid() and formset.is_valid():
+#             post_form = postForm.save(commit=False)
+#             post_form.user = request.user
+#             post_form.save()
+
+#             for form in formset.cleaned_data:
+#                 image = form['image']
+#                 photo = Images(post=post_form, image=image)
+#                 photo.save()
+#             messages.success(request, "Posted!")
+#             return HttpResponseRedirect("/")
+#         else:
+#             print (postForm.errors, formset.errors)
+#     else:
+#         postForm = AlbumForm()
+#         formset = ImageFormSet(queryset=Images.objects.none())
+#     return render(request, 'admintemplates/newsapp/albumcreate.html',
+#                   {
+#                   'postForm': postForm, 
+#                   'formset': formset},
+#                  )
 
 # class ClientPostCategory(ListView):
 #     paginate_by = 2

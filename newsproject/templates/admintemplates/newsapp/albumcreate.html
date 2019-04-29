@@ -1,0 +1,20 @@
+{% extends "admintemplates/adminbase.html" %}
+{% block content %}
+<style>
+	#id_tag {
+    height: 50px ;
+    width: 500px;
+}
+</style>
+<link href="https://cdnjs.cloudflare.com/ajax/libs/select2/4.0.6-rc.0/css/select2.min.css" rel="stylesheet" />
+
+<form id="post_form" method="post" action="{% url 'newsapp:adminalbumcreate' %}" enctype="multipart/form-data">
+
+ {% csrf_token %}
+ {{ form.as_p }}
+
+
+    <input type="submit" name="submit" value="Submit" />
+</form>
+
+{% endblock content %}

@@ -12,6 +12,8 @@ urlpatterns = [
     path('posts/topic/<int:pk>/', ClientPostTopic.as_view(), name='clientnewstopic'),
     path('posts/tag/<int:pk>/', ClientPostTag.as_view(), name='clientnewstag'),
     path('posts/category/<int:pk>/', ClientPostCategory.as_view(), name='clientnewscategory'),
+    
+    
 
 
 
@@ -45,6 +47,14 @@ urlpatterns = [
     path('admin-panel/news/<int:pk>/delete/',
          AdminNewsDeleteView.as_view(),
          name='adminnewsdelete'),
+
+
+
+
+
+    # path('album/create/', AdminGalleryCreateView.as_view(), name='adminalbumcreate'),
+
+    # path('album/<int:pk>/', AdminAlbumDetailView.as_view(), name='adminalbumlist'),
 
 
     # path('admin-panel/blog/create/',
