@@ -15,14 +15,19 @@
 						<div class="single-post wow fadeInUp" data-wow-delay=".2s">
 							<!-- Post Thumb -->
 							<!-- Post Thumb -->
-							{% for post in posts|slice:":1" %}
+						<!-- 	{% for post in posts|slice:":1" %}
 							<a href="#">
 								<h1 class="post-headline" style="color:red;">{{ post.topic.category.name }}</h1>
 								<hr>
 							</a>
-							{% endfor %}
+							{% endfor %} -->
 
-							{% for post in posts %}
+							<a href="#">
+								<h1 class="post-headline" style="color:red;">{{ cat }}</h1>
+								<hr>
+							</a>
+
+							{% for post in object_list %}
 							<!-- Post Content -->
 							<div class="post-content">
 								<div class="post-meta d-flex">
@@ -32,7 +37,7 @@
 											<a href="#">@{{post.author}}</a>
 										</div>
 										<div class="post-author">
-											<a href="{% url 'newsapp:clientnewstopic' post.topic.pk %}">{{ post.topic }}</a>
+											<a href="{% url 'newsapp:clientnewstopic' post.topic.pk %}">{{ post.topic }} => {{post.topic.category.name}}</a>
 										</div>
 										<!-- Post Date -->
 										<div class="post-date">
@@ -64,6 +69,26 @@
 								<hr>
 							</div>
 							{% endfor %}
+
+							<!-- Pagination -->
+							<div class="pagination" style="margin-left:  350px;">
+							    <span class="step-links">
+							        {% if page_obj.has_previous %}
+							            <a href="?page=1"> first</a>
+							            <a href="?page={{ page_obj.previous_page_number }}"><button class="btn btn-info">&laquo; </button> </a>
+							        {% endif %}
+
+							        <span class="current">
+							            Page {{ page_obj.number }} of {{ page_obj.paginator.num_pages }}.
+							        </span>
+
+							        {% if page_obj.has_next %}
+							            <a href="?page={{ page_obj.next_page_number }}"><button class="btn btn-info"> &raquo; </button></a>
+							            <a href="?page={{ page_obj.paginator.num_pages }}">last </a>
+							        {% endif %}
+							    </span>
+							</div>
+
 						</div>
 					</div>
 				</div>

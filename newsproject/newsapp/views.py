@@ -101,6 +101,7 @@ class ClientPostTopic(ListView):
 class ClientPostTag(ListView):
     model = Post
     template_name = 'clienttemplates/clientnewstag.html'
+    paginate_by = 1
 
     def get_queryset(self):
         self.tag = get_object_or_404(Tag, pk=self.kwargs['pk'])
@@ -113,19 +114,42 @@ class ClientPostTag(ListView):
         return context
 
 
+
 class ClientPostCategory(ListView):
     model = Post
     template_name = 'clienttemplates/clientnewscategory.html'
+    paginate_by = 2
 
-    # def get_queryset(self):
-    #     self.tag = get_object_or_404(Tag, pk=self.kwargs['pk'])
-    #     return Post.objects.filter(tag=self.tag)
+    def get_queryset(self):
+        self.category = get_object_or_404(Category, pk=self.kwargs['pk'])
+        return Post.objects.filter(topic__category=self.category)
 
     def get_context_data(self, **kwargs):
         context = super(ClientPostCategory, self).get_context_data(**kwargs)
-        # context['category'] = self.tag
+        context['category'] = self.category
         context['categories'] = Category.objects.all()
-        context['posts'] = Post.objects.filter(topic__category=self.kwargs['pk'])
-        # post__category = Category.objects.get(id=self.kwargs['pk'])
-        print(context['posts'])
+        post__category = Category.objects.get(id=self.kwargs['pk']) #taking single category name
+        context['cat'] = post__category
         return context
+
+
+# class ClientPostCategory(ListView):
+#     paginate_by = 2
+#     model = Post
+#     template_name = 'clienttemplates/clientnewscategory.html'
+    
+
+#     # def get_queryset(self):
+#     #     self.category = get_object_or_404(Category, pk=self.kwargs['pk'])
+#     #     return Post.objects.filter(category=self.category)
+
+#     def get_context_data(self, **kwargs):
+#         context = super(ClientPostCategory, self).get_context_data(**kwargs)
+#         # context['category'] = self.category
+#         context['categories'] = Category.objects.all() #menu bar
+#         # print(Post.objects.filter(topic__category=self.kwargs['pk']))
+#         context['posts'] = Post.objects.filter(topic__category=self.kwargs['pk']).order_by('created_at')
+#         post__category = Category.objects.get(id=self.kwargs['pk']) #taking single category name
+#         context['cat'] = post__category
+#         # print(context['posts'])
+#         return context
