@@ -1,5 +1,5 @@
 from django import forms
-from .models import Post, Album, Images
+from .models import Post, Photo
 from django_summernote.widgets import SummernoteWidget
 
 
@@ -23,15 +23,20 @@ class AdminNewsForm(forms.ModelForm):
 
         }
 
-class AlbumForm(forms.ModelForm):
-    image = forms.ImageField(label='Image')    
+class AdminPhotoForm(forms.ModelForm):
     class Meta:
-        model = Album
-        fields = ('name', 'description',)
+        model = Photo
+        fields = ('file',)
+            
+# class AlbumForm(forms.ModelForm):
+#     image = forms.ImageField(label='Image')    
+#     class Meta:
+#         model = Album
+#         fields = ('name', 'description',)
 
 
-class ImageForm(forms.ModelForm):
-    image = forms.ImageField(label='Image')    
-    class Meta:
-        model = Images
-        fields = ('image', )
+# class ImageForm(forms.ModelForm):
+#     image = forms.ImageField(label='Image')    
+#     class Meta:
+#         model = Images
+#         fields = ('image', )

@@ -70,12 +70,21 @@ def get_image_filename(instance, filename):
     return "post_images/%s" % (id)
 
 
-class Album(models.Model):
-    name = models.CharField(max_length=30)
-    description = models.TextField()
-    created_at = models.DateTimeField(auto_now=True)
+class Photo(models.Model):
+    title = models.CharField(max_length=255, blank=True)
+    file = models.FileField(upload_to='photos/')
+    uploaded_at = models.DateTimeField(auto_now_add=True)
+
+    def __str__(self):
+        return self.file.url
+
+
+# class Album(models.Model):
+#     name = models.CharField(max_length=30)
+#     description = models.TextField()
+#     created_at = models.DateTimeField(auto_now=True)
     
 
-class Images(models.Model):
-    album = models.ForeignKey(Album, on_delete=models.CASCADE)
-    image = models.ImageField(upload_to=get_image_filename, verbose_name='Image')
+# class Images(models.Model):
+#     album = models.ForeignKey(Album, on_delete=models.CASCADE)
+#     image = models.ImageField(upload_to=get_image_filename, verbose_name='Image')

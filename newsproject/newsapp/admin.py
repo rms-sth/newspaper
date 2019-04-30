@@ -1,13 +1,14 @@
 from django.contrib import admin
-from .models import Category, Topic, Post, Tag, Album, Images
+from .models import Category, Topic, Post, Tag, Photo
 from django_summernote.admin import SummernoteModelAdmin
 # Register your models here.
 
 admin.site.register(Category)
 admin.site.register(Topic)
 admin.site.register(Tag)
-admin.site.register(Album)
-admin.site.register(Images)
+admin.site.register(Photo)
+# admin.site.register(Album)
+# admin.site.register(Images)
 
 # Apply summernote to all TextField in model.
 

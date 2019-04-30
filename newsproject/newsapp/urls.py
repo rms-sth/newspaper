@@ -53,6 +53,10 @@ urlpatterns = [
 
 
     # path('album/create/', AdminGalleryCreateView.as_view(), name='adminalbumcreate'),
+    
+
+    path('album/create/', AdminGalleryView.as_view(), name='adminalbumcreate'),
+    path('album/delete/<int:pk>', AdminImageDeleteView.as_view(), name='adminalbumdelete'),
 
     # path('album/<int:pk>/', AdminAlbumDetailView.as_view(), name='adminalbumlist'),
 

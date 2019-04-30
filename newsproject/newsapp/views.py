@@ -1,6 +1,6 @@
 from django.views.generic import *
 from django.urls import reverse_lazy, reverse
-from .models import Post, Tag, Album
+from .models import Post, Tag, Photo
 from .forms import AdminNewsForm
 from django.contrib.auth.models import User
 from .models import *
@@ -10,8 +10,9 @@ from django.views.generic.edit import FormView
 from django.forms import modelformset_factory
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from django.http import HttpResponseRedirect
+from django.http import HttpResponseRedirect, JsonResponse
 from django.template import RequestContext
+from django.views import View
 
 
 
@@ -159,6 +160,52 @@ class ClientPostCategory(ListView):
         post__category = Category.objects.get(id=self.kwargs['pk']) #taking single category name
         context['cat'] = post__category
         return context
+
+
+class AdminGalleryView(View):
+    def get(self, request):
+        photos_list = Photo.objects.all()
+        return render(self.request, 'admintemplates/newsapp/albumcreate.html', {'photos': photos_list})
+
+    def post(self, request):
+        form = AdminPhotoForm(self.request.POST, self.request.FILES)
+        if form.is_valid():
+            photo = form.save()
+            data = {
+            'is_valid': True, 
+            'name': photo.file.name,
+            'url': photo.file.url}
+        else:
+            data = {'is_valid': False}
+        return JsonResponse(data)
+
+
+class AdminImageDeleteView(DeleteView):
+    model = Photo
+
+    def get_success_url(self):
+        return reverse('newsapp:adminalbumcreate')
+
+
+
+
+
+# class AdminGalleryCreateView(FormView):
+#     success_url = reverse_lazy('newsapp:adminalbumdetail')
+#     template_name = 'admintemplates/adminalbumcreate.html'
+#     form_class = ImageForm
+
+#     # def get_form_kwargs(self):
+#     #     kwargs = super(AdminGalleryCreateView, self).get_form_kwargs()
+#     #     kwargs["queryset"] = Images.objects.none()
+#     #     return kwargs
+
+#     def form_valid(self, form):
+#         user = self.request.user.id
+#         author = User.objects.get(id=user)
+#         form.instance.author = author
+#         return super().form_valid(form)
+
 
 
 # class AdminGalleryCreateView(FormView):
