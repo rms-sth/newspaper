@@ -1,0 +1,43 @@
+{% extends "admintemplates/adminbase.html" %}
+
+{% block content %}
+
+{% block section %}
+<!-- {# 1. BUTTON TO TRIGGER THE ACTION #} -->
+<button type="button" class="btn btn-primary js-upload-photos">
+    <span class="glyphicon glyphicon-cloud-upload"></span> Upload photos
+</button>
+
+<!-- {# 2. FILE INPUT TO BE USED BY THE PLUG-IN #} -->
+<input id="fileupload" type="file" name="file" multiple style="display: none;"
+    data-url="{% url 'newsapp:adminalbumcreate' %}" data-form-data='{"csrfmiddlewaretoken": "{{ csrf_token }}"}'>
+
+<!-- {# 3. TABLE TO DISPLAY THE UPLOADED PHOTOS #} -->
+<div class="table border">
+<table id="gallery">
+  <h2>Photos</h2>
+
+    <tbody>
+        {% for photo in photos %}
+        <tr id="row{{photo.pk}}"> 
+            <td>
+            	<a href="{{ photo.file.url }}">
+            		<img src="{{photo.file.url}}" class="img-thumbnail"  alt="{{photo.file.name}}" width="200" height="200"> {{ photo.file.name }} || {{ photo.id }}
+            	</a>
+            </td>
+            
+            <td>
+              <button class="ramesh btn btn-danger" photo-id="{{ photo.pk }}" onclick="del({{ photo.pk }})" style="margin:80px;">Delete {{ photo.pk }}</button>
+            </td>
+
+        </tr>
+
+       
+
+        {% endfor %}
+    </tbody>
+</table>
+</div>
+{% endblock section %}
+
+{% endblock %}

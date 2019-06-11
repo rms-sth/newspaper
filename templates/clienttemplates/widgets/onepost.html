@@ -1,0 +1,53 @@
+{% load static %}
+
+<!-- Single Post -->
+<div class="col-12">
+    <div class="single-post wow fadeInUp" data-wow-delay=".2s">
+        <!-- Post Thumb -->
+        {% for l in latest %}
+        <div class="post-thumb">
+            <img src="{{ l.image.url }}" alt="">
+        </div>
+        <!-- Post Content -->
+        
+        <div class="post-content">
+            <div class="post-meta d-flex">
+                <div class="post-author-date-area d-flex">
+                    <!-- Post Author -->
+                    <div class="post-author">
+                        <a href="#">By {{l.author}}</a>
+                    </div>
+                    <div class="post-author">
+                        <a href="{% url 'newsapp:clientnewstopic' l.topic.pk %}">{{ l.topic }}</a>
+                    </div>
+                    <!-- Post Date -->
+                    <div class="post-date">
+                        <a href="#">{{ l.created_at }}</a>
+                    </div>
+                </div>
+                <!-- Post Comment & Share Area -->
+                <div class="post-comment-share-area d-flex">
+                    <!-- Post Favourite -->
+                    <div class="post-favourite">
+                        <a href="#"><i class="fa fa-heart-o" aria-hidden="true"></i> 10</a>
+                    </div>
+                    <!-- Post Comments -->
+                    <div class="post-comments">
+                        <a href="#"><i class="fa fa-comment-o" aria-hidden="true"></i> 12</a>
+                    </div>
+                    <!-- Post Share -->
+                    <div class="post-share">
+                        <a href="#"><i class="fa fa-share-alt" aria-hidden="true"></i></a>
+                    </div>
+                </div>
+            </div>
+            <a href="{% url 'newsapp:clientnewsdetail' l.id %}">
+                <h2 class="post-headline">{{ l.title }}</h2>
+            </a>
+            <p>{{ l.content | striptags | safe | truncatechars:200 }} </p>
+            <a href="{% url 'newsapp:clientnewsdetail' l.id %}" class="read-more">Continue Reading..</a>
+        </div>
+        {% endfor %}
+    </div>
+    <h1 style="color: blue;"><u>Most Recent Posts</u>:</h1><hr>
+</div>

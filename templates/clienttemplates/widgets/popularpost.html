@@ -1,0 +1,29 @@
+{% load static %}
+
+
+{% block content %}
+
+
+<!-- Single Widget Area -->
+<div class="single-widget-area popular-post-widget">
+    <div class="widget-title text-center">
+        <h6>Populer Post</h6>
+    </div>
+
+    <!-- Single Popular Post -->
+    {% for p in popularposts %}
+    <div class="single-populer-post d-flex">
+        <img src="{{ p.image.url }}" alt="">
+        <div class="post-content">
+            <a href="{% url 'newsapp:clientnewsdetail' p.id %}">
+                <h4>{{ p.title | truncatechars:20 }}</h4>
+            </a>
+            <p>{{ p.created_at }}</p>
+            <a href="{% url 'newsapp:clientnewstopic' p.topic.pk %}">{{ p.topic }}</a>
+        </div>
+    </div>
+    {% endfor %}
+</div>
+
+
+{% endblock %}
