@@ -1,10 +1,11 @@
 {% extends "admintemplates/adminbase.html" %}
 {% block content %}
-<div class="container">
+  <div class="container">
     <h1>Edit Post</h1>
-    <form action="" method="post" enctype="multipart/form-data">{% csrf_token %}
-        {{form.as_p}}
-        <input class="btn btn-primary" type="submit" value="Update">
+    <form action="" method="post" enctype="multipart/form-data">
+      {% csrf_token %}
+      {{ form.as_p }}
+      <input class="btn btn-primary" type="submit" value="Update">
     </form>
-</div>
+  </div>
 {% endblock content %}
