@@ -6,17 +6,17 @@ from django.db import migrations, models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('newsapp', '0002_auto_20190424_1425'),
+        ("newsapp", "0002_auto_20190424_1425"),
     ]
 
     operations = [
         migrations.AlterModelOptions(
-            name='post',
-            options={'ordering': ('-created_at',)},
+            name="post",
+            options={"ordering": ("-created_at",)},
         ),
         migrations.AlterField(
-            model_name='post',
-            name='image',
-            field=models.ImageField(blank=True, null=True, upload_to='post_images'),
+            model_name="post",
+            name="image",
+            field=models.ImageField(blank=True, null=True, upload_to="post_images"),
         ),
     ]

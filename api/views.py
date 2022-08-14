@@ -3,8 +3,6 @@ from rest_framework import viewsets, permissions
 from .serializers import *
 
 
-
-
 class TagAPIView(viewsets.ModelViewSet):
     queryset = Tag.objects.all()
     serializer_class = TagSerializer
@@ -27,5 +25,3 @@ class NewsAPIView(viewsets.ModelViewSet):
     queryset = Post.objects.all()
     serializer_class = NewsSerializer
     # permission_classes = (permissions.IsAuthenticatedOrReadOnly,)
-
-

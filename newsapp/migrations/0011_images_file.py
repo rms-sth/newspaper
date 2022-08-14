@@ -7,14 +7,18 @@ import newsapp.models
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('newsapp', '0010_auto_20190429_1515'),
+        ("newsapp", "0010_auto_20190429_1515"),
     ]
 
     operations = [
         migrations.AddField(
-            model_name='images',
-            name='file',
-            field=models.FileField(default=1, upload_to=newsapp.models.get_image_filename, verbose_name='File'),
+            model_name="images",
+            name="file",
+            field=models.FileField(
+                default=1,
+                upload_to=newsapp.models.get_image_filename,
+                verbose_name="File",
+            ),
             preserve_default=False,
         ),
     ]
